@@ -1,0 +1,18 @@
+{
+    "name": "mm-psiiirus/psiiiphpmailer",
+    "require": {
+        "php": ">=5.3.9",
+        "phpmailer/phpmailer": "^5.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Psiii": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Toni Gurski",
+            "email": "tg@mandarin-medien.de"
+        }
+    ]
+}

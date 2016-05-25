@@ -1,0 +1,8 @@
+<?php
+
+$psiiiMailer['gmail']['username'] = "";
+$psiiiMailer['gmail']['password'] = "";
+
+$psiiiMailer['form-address'] = '';
+$psiiiMailer['to-address'] = '';
+$psiiiMailer['reply-address'] = '';
