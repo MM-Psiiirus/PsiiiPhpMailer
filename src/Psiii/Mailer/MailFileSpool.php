@@ -85,7 +85,7 @@ class MailFileSpool implements MailSpoolInterface
 
                 $address = "";
                 foreach ($phpMailer->getToAddresses() as $email)
-                    $address .= $email[1] . " <" . $email[0] . "> |";
+                    $address .= $email[0] . " - " . $email[1] . " |";
 
                 $error = 'PsiiiMailer::spool-sender coudn\'t send mail to ' . $address . " - " . $file;
 
