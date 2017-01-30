@@ -53,7 +53,7 @@ class MailFileSpool implements MailSpoolInterface
              */
             $phpMailerInst = unserialize($serializedObject);
 
-            if($phpMailerInst instanceof Mail)
+            if ($phpMailerInst instanceof Mail)
                 $phpMailers[$file] = $phpMailerInst;
         }
 
@@ -64,13 +64,23 @@ class MailFileSpool implements MailSpoolInterface
     {
         $MailerObject = serialize($mail);
 
-        $fileName = microtime(true).str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) . ".message";
+        $fileName = microtime(true) . str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) . ".message";
 
-        file_put_contents($this->dir.'/'. $fileName, $MailerObject);
+        file_put_contents($this->dir . '/' . $fileName, $MailerObject);
     }
 
-    public function send()
+    private $cronFilename = '_cron.MailFileSpool.running';
+
+    public function send($deleteOnFail = false)
     {
+        $cronFile = $this->dir . '/' . $this->cronFilename;
+
+        if(file_exists($cronFile))
+            return;
+
+
+        file_put_contents($cronFile, date('now'));
+
         $mailerInstances = $this->getPHPMailerInstances($this->dir);
 
         foreach ($mailerInstances as $file => $phpMailer) {
@@ -92,9 +102,13 @@ class MailFileSpool implements MailSpoolInterface
                 if ($phpMailer->isError())
                     $error .= ": Error " . $phpMailer->ErrorInfo;
 
+                if ($deleteOnFail)
+                    unlink($file);
+
                 trigger_error($error);
             }
         }
 
+        unlink($cronFile);
     }
 }
