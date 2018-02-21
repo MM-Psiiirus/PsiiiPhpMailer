@@ -44,7 +44,7 @@ class Mail extends \PHPMailer
             if($mailTransporter->getPassword())
                 $this->Password = $mailTransporter->getPassword();      // SMTP password
     
-            if($mailTransporter->getSMTPSecure()
+            if($mailTransporter->getSMTPSecure())
                 $this->SMTPSecure = $mailTransporter->getSMTPSecure();  // Enable TLS encryption, `ssl` also accepted
     
             if($mailTransporter->getPort())
