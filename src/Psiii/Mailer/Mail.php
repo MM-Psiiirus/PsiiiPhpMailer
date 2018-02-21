@@ -32,12 +32,23 @@ class Mail extends \PHPMailer
             if ($mailTransporter->isSMTP())
                 $this->isSMTP();                                         // Set mailer to use SMTP
 
-            $this->Host = $mailTransporter->getHost() | '';              // Specify main and backup SMTP servers
-            $this->SMTPAuth = $mailTransporter->isSMTPAuth() | false;    // Enable SMTP authentication
-            $this->Username = $mailTransporter->getUsername() | '';      // SMTP username
-            $this->Password = $mailTransporter->getPassword() | '';      // SMTP password
-            $this->SMTPSecure = $mailTransporter->getSMTPSecure() | '';  // Enable TLS encryption, `ssl` also accepted
-            $this->Port = $mailTransporter->getPort() | '';              // TCP port to connect to
+            if($mailTransporter->getHost())
+                $this->Host = $mailTransporter->getHost();              // Specify main and backup SMTP servers
+            
+            if($mailTransporter->isSMTPAuth())
+                $this->SMTPAuth = $mailTransporter->isSMTPAuth();    // Enable SMTP authentication
+            
+            if($mailTransporter->getUsername())
+                $this->Username = $mailTransporter->getUsername();      // SMTP username
+
+            if($mailTransporter->getPassword())
+                $this->Password = $mailTransporter->getPassword();      // SMTP password
+    
+            if($mailTransporter->getSMTPSecure()
+                $this->SMTPSecure = $mailTransporter->getSMTPSecure();  // Enable TLS encryption, `ssl` also accepted
+    
+            if($mailTransporter->getPort())
+                $this->Port = $mailTransporter->getPort();              // TCP port to connect to
         }
 
     }
